@@ -9,7 +9,7 @@ var port = process.env.PORT || 1337;
 app.use(bodyParser.json());
 
 app.post('/trigger', function (req, res) {
-	res.send(200);
+	res.write(req.body);
 });
 
 app.get('/', function (req, res) {
