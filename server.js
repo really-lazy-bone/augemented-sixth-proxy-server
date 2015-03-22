@@ -11,9 +11,17 @@ app.use(bodyParser.json());
 app.post('/trigger', function (req, res) {
 	res.send(200);
 
-	/**
 	var ref = new Firebase('augmented-sixth.firebaseIO.com');
 
+	/**
+	 * result:
+	 * 	stream = stream name
+	 * 	trigger_name
+	 * 	trigger_description
+	 * 	condition
+	 * 	value
+	 * 	timestamp
+	 */
 
 	var sensorType = '';
 
@@ -45,17 +53,6 @@ app.post('/trigger', function (req, res) {
 
 	ref.child(sensorType)
 		.set(randomValue);
-*/		
-		
-	/**
-	 * result:
-	 * 	stream = stream name
-	 * 	trigger_name
-	 * 	trigger_description
-	 * 	condition
-	 * 	value
-	 * 	timestamp
-	 */
 });
 
 app.get('/', function (req, res) {
