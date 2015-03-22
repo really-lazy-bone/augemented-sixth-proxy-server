@@ -9,7 +9,50 @@ var port = process.env.PORT || 1337;
 app.use(bodyParser.json());
 
 app.post('/trigger', function (req, res) {
-	res.write(req.body);
+	res.send(200);
+
+	var ref = new Firebase('augmented-sixth.firebaseIO.com');
+
+	/**
+	 * result:
+	 * 	stream = stream name
+	 * 	trigger_name
+	 * 	trigger_description
+	 * 	condition
+	 * 	value
+	 * 	timestamp
+	 */
+
+	var sensorType = '';
+
+	switch (req.body.stream) {
+		case 'ultrasonic-sensor-1':
+			sensorType = 'left';
+			break;
+		case 'ultrasonic-sensor-2':
+			sensorType = 'right';
+			break;
+		case 'ultrasonic-sensor-3':
+			sensorType = 'front';
+			break;
+		case 'potentiometer':
+			sensorType = 'back';
+			break;
+	}
+
+	var random = Math.random() * 100;
+	var randomValue = '';
+
+	if (random < 33) {
+		randomValue = 'close';
+	} else if (random < 66) {
+		randomValue = 'middle';
+	} else if (random < 100) {
+		randomValue = 'far';
+	}
+
+	ref.child(sensorType)
+		.set(randomValue);
 });
 
 app.get('/', function (req, res) {
